@@ -15,6 +15,7 @@
 		1314E7CE25AD9F2300780B37 /* Petition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1314E7CD25AD9F2300780B37 /* Petition.swift */; };
 		1314E7D125AD9F8D00780B37 /* Petitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1314E7D025AD9F8D00780B37 /* Petitions.swift */; };
 		1314E7D425ADA4B700780B37 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1314E7D325ADA4B700780B37 /* DetailViewController.swift */; };
+		1314E7D825ADFFD700780B37 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1314E7D725ADFFD700780B37 /* UIViewController+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1314E7CD25AD9F2300780B37 /* Petition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petition.swift; sourceTree = "<group>"; };
 		1314E7D025AD9F8D00780B37 /* Petitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petitions.swift; sourceTree = "<group>"; };
 		1314E7D325ADA4B700780B37 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		1314E7D725ADFFD700780B37 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			children = (
 				1314E7B725AD98EA00780B37 /* AppDelegate.swift */,
 				1314E7B925AD98EA00780B37 /* SceneDelegate.swift */,
+				1314E7D725ADFFD700780B37 /* UIViewController+Ext.swift */,
 				1314E7BB25AD98EA00780B37 /* ViewController.swift */,
 				1314E7D325ADA4B700780B37 /* DetailViewController.swift */,
 				1314E7C025AD98EF00780B37 /* Assets.xcassets */,
@@ -144,6 +147,7 @@
 			files = (
 				1314E7BC25AD98EA00780B37 /* ViewController.swift in Sources */,
 				1314E7CE25AD9F2300780B37 /* Petition.swift in Sources */,
+				1314E7D825ADFFD700780B37 /* UIViewController+Ext.swift in Sources */,
 				1314E7B825AD98EA00780B37 /* AppDelegate.swift in Sources */,
 				1314E7D425ADA4B700780B37 /* DetailViewController.swift in Sources */,
 				1314E7BA25AD98EA00780B37 /* SceneDelegate.swift in Sources */,

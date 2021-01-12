@@ -18,10 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let mainView = ViewController(nibName: nil, bundle: nil)
+        let mainView = ViewController()
         let tabBarController = UITabBarController()
-        let navigationController = UINavigationController(rootViewController: mainView)
-        tabBarController.viewControllers = [navigationController]
+        let recentsVC = UINavigationController(rootViewController: mainView)
+        let topRatedVC = ViewController()
+        
+        recentsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .recents, tag: 0)
+        topRatedVC.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
+        tabBarController.viewControllers = [recentsVC, topRatedVC]
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene

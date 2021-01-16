@@ -16,6 +16,8 @@
 		1314E7D125AD9F8D00780B37 /* Petitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1314E7D025AD9F8D00780B37 /* Petitions.swift */; };
 		1314E7D425ADA4B700780B37 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1314E7D325ADA4B700780B37 /* DetailViewController.swift */; };
 		1314E7D825ADFFD700780B37 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1314E7D725ADFFD700780B37 /* UIViewController+Ext.swift */; };
+		1337D07325B2DF9F00FC6D38 /* AppBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1337D07225B2DF9F00FC6D38 /* AppBanner.png */; };
+		13FB1C2725B2B0DC00048715 /* PetitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB1C2625B2B0DC00048715 /* PetitionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,9 @@
 		1314E7D025AD9F8D00780B37 /* Petitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petitions.swift; sourceTree = "<group>"; };
 		1314E7D325ADA4B700780B37 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		1314E7D725ADFFD700780B37 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		1337D07225B2DF9F00FC6D38 /* AppBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppBanner.png; sourceTree = "<group>"; };
+		13FB1C1B25B2ABD700048715 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		13FB1C2625B2B0DC00048715 /* PetitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +51,8 @@
 		1314E7AB25AD98EA00780B37 = {
 			isa = PBXGroup;
 			children = (
+				13FB1C1B25B2ABD700048715 /* README.md */,
+				13FB1C1A25B2ABCA00048715 /* Documentation */,
 				1314E7B625AD98EA00780B37 /* WhitehousePetitions */,
 				1314E7B525AD98EA00780B37 /* Products */,
 			);
@@ -62,18 +69,75 @@
 		1314E7B625AD98EA00780B37 /* WhitehousePetitions */ = {
 			isa = PBXGroup;
 			children = (
+				13FB1C1F25B2B05300048715 /* Model */,
+				13FB1C2125B2B05A00048715 /* Extensions */,
+				13FB1C2525B2B0BD00048715 /* Custom Views */,
+				13FB1C2225B2B06300048715 /* Controllers */,
+				13FB1C1D25B2B04800048715 /* Support */,
+				1314E7C525AD98EF00780B37 /* Info.plist */,
+			);
+			path = WhitehousePetitions;
+			sourceTree = "<group>";
+		};
+		13FB1C1A25B2ABCA00048715 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				1337D07225B2DF9F00FC6D38 /* AppBanner.png */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
+		13FB1C1D25B2B04800048715 /* Support */ = {
+			isa = PBXGroup;
+			children = (
 				1314E7B725AD98EA00780B37 /* AppDelegate.swift */,
 				1314E7B925AD98EA00780B37 /* SceneDelegate.swift */,
-				1314E7D725ADFFD700780B37 /* UIViewController+Ext.swift */,
-				1314E7BB25AD98EA00780B37 /* ViewController.swift */,
-				1314E7D325ADA4B700780B37 /* DetailViewController.swift */,
 				1314E7C025AD98EF00780B37 /* Assets.xcassets */,
 				1314E7C225AD98EF00780B37 /* LaunchScreen.storyboard */,
-				1314E7C525AD98EF00780B37 /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		13FB1C1F25B2B05300048715 /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				1314E7CD25AD9F2300780B37 /* Petition.swift */,
 				1314E7D025AD9F8D00780B37 /* Petitions.swift */,
 			);
-			path = WhitehousePetitions;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		13FB1C2125B2B05A00048715 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1314E7D725ADFFD700780B37 /* UIViewController+Ext.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		13FB1C2225B2B06300048715 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1314E7BB25AD98EA00780B37 /* ViewController.swift */,
+				1314E7D325ADA4B700780B37 /* DetailViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		13FB1C2525B2B0BD00048715 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				13FB1C2A25B2B0E200048715 /* Cells */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		13FB1C2A25B2B0E200048715 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				13FB1C2625B2B0DC00048715 /* PetitionCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +199,7 @@
 			files = (
 				1314E7C425AD98EF00780B37 /* LaunchScreen.storyboard in Resources */,
 				1314E7C125AD98EF00780B37 /* Assets.xcassets in Resources */,
+				1337D07325B2DF9F00FC6D38 /* AppBanner.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1314E7BC25AD98EA00780B37 /* ViewController.swift in Sources */,
+				13FB1C2725B2B0DC00048715 /* PetitionCell.swift in Sources */,
 				1314E7CE25AD9F2300780B37 /* Petition.swift in Sources */,
 				1314E7D825ADFFD700780B37 /* UIViewController+Ext.swift in Sources */,
 				1314E7B825AD98EA00780B37 /* AppDelegate.swift in Sources */,

@@ -9,14 +9,22 @@ import UIKit
 
 class ViewController: UITableViewController {
     var petitions = [Petition]()
-
+    var filteredPetitions = [Petition]()
+    var isSearching: Bool = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         let urlString: String
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showAlert))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPetition))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshPetitions))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showAlert))
+
+        navigationItem.rightBarButtonItems = [refreshButton, searchButton]
         
         if navigationController?.tabBarItem.tag == 0 {
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
@@ -32,6 +40,38 @@ class ViewController: UITableViewController {
         }
         
         showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
+    }
+    
+    @objc func refreshPetitions() {
+    
+    }
+    
+    @objc func searchPetition() {
+        let ac = UIAlertController(title: "Search petition", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Search", style: .default) {
+            [weak self, weak ac] _ in
+            guard let searchString = ac?.textFields?[0].text else { return }
+            self?.updateSearchResults(searchString)
+        }
+                
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
+    
+    func updateSearchResults(_ searchString : String) {
+        if searchString.isEmpty {
+            filteredPetitions.removeAll()
+            isSearching = false
+            tableView.reloadData()
+            return
+        }
+        
+        isSearching = true
+        filteredPetitions = petitions.filter({ $0.title.lowercased().contains(searchString.lowercased()) })
+        print(filteredPetitions)
+        tableView.reloadData()
     }
     
     @objc func showAlert() {
@@ -50,7 +90,8 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+        let activeArray = isSearching ? filteredPetitions : petitions
+        return activeArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,9 +99,9 @@ class ViewController: UITableViewController {
         cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
         cell.accessoryType = .disclosureIndicator
         
-        let petition = petitions[indexPath.row]
-        cell.textLabel?.text = petition.title
-        cell.detailTextLabel?.text = petition.body
+        let activeArray = isSearching ? filteredPetitions : petitions
+        cell.textLabel?.text = activeArray[indexPath.row].title
+        cell.detailTextLabel?.text = activeArray[indexPath.row].body
         
         return cell
     }
@@ -72,3 +113,10 @@ class ViewController: UITableViewController {
     }
 }
 
+extension ViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        isSearching = false
+        filteredPetitions.removeAll()
+        tableView.reloadData()
+    }
+}

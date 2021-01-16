@@ -21,12 +21,15 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         guard let detailItem = detailItem else { return }
+        title = "About petition"
         
         let html = """
         <html>
         <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style> body { font-size: 150%; } </style>
+        <h2>\(detailItem.title)</h2>
+        <h3>Signature Count: \(detailItem.signatureCount)</h3>
+        <style> body { font-size: 140%; } </style>
         </head>
         <body>
         \(detailItem.body)

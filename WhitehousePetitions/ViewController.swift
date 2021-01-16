@@ -29,10 +29,10 @@ class ViewController: UITableViewController {
     }
     
     func configureNavBar() {
+        title = "Petitions"
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPetition))
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshPetitions))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showAlert))
-
         navigationItem.rightBarButtonItems = [refreshButton, searchButton]
     }
     
@@ -111,7 +111,9 @@ class ViewController: UITableViewController {
     // MARK: - TableView datasource and delegate methods
     
     func configureTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(PetitionCell.self, forCellReuseIdentifier: PetitionCell.reuseID)
+        tableView.rowHeight = 118
+        tableView.separatorStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,13 +122,11 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
-        cell.accessoryType = .disclosureIndicator
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: PetitionCell.reuseID) as! PetitionCell
+                
         let activeArray = isSearching ? filteredPetitions : petitions
-        cell.textLabel?.text = activeArray[indexPath.row].title
-        cell.detailTextLabel?.text = activeArray[indexPath.row].body
+        let petition = activeArray[indexPath.row]
+        cell.set(petition: petition)
         
         return cell
     }

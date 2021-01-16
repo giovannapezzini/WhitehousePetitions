@@ -15,16 +15,35 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureTabBar()
+        configureNavBar()
+        configureTableView()
+        getPetitions()
+    }
+    
+    // MARK: - TabBar and NavBar methods
+    
+    func configureTabBar() {
         tabBarController?.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
-        let urlString: String
-        
+    }
+    
+    func configureNavBar() {
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPetition))
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshPetitions))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showAlert))
 
         navigationItem.rightBarButtonItems = [refreshButton, searchButton]
+    }
+    
+    @objc func refreshPetitions() {
+        
+    }
+    
+    // MARK: - Fetch and parse Data
+    
+    func getPetitions() {
+        let urlString: String
         
         if navigationController?.tabBarItem.tag == 0 {
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
@@ -42,9 +61,23 @@ class ViewController: UITableViewController {
         showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
     }
     
-    @objc func refreshPetitions() {
-    
+    func parse(json: Data) {
+        let decoder = JSONDecoder()
+        
+        if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
+            petitions = jsonPetitions.results
+            tableView.reloadData()
+        }
     }
+    
+    @objc func showAlert() {
+        let ac = UIAlertController(title: "Credits", message: "The data comes from the We The People API of the Whitehouse", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
+    
+    
+    // MARK: - Search Methods
     
     @objc func searchPetition() {
         let ac = UIAlertController(title: "Search petition", message: nil, preferredStyle: .alert)
@@ -74,19 +107,10 @@ class ViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    @objc func showAlert() {
-        let ac = UIAlertController(title: "Credits", message: "The data comes from the We The People API of the Whitehouse", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Ok", style: .default))
-        present(ac, animated: true)
-    }
+    // MARK: - TableView datasource and delegate methods
     
-    func parse(json: Data) {
-        let decoder = JSONDecoder()
-        
-        if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
-            petitions = jsonPetitions.results
-            tableView.reloadData()
-        }
+    func configureTableView() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,6 +136,8 @@ class ViewController: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+// MARK: - UITabBarControllerDelegate
 
 extension ViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

@@ -37,7 +37,9 @@ class ViewController: UITableViewController {
     }
     
     @objc func refreshPetitions() {
-        
+        isSearching = false
+        filteredPetitions.removeAll()
+        tableView.reloadData()
     }
     
     // MARK: - Fetch and parse Data

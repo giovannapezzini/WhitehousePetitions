@@ -104,8 +104,7 @@ class ViewController: UITableViewController {
         }
         
         isSearching = true
-        filteredPetitions = petitions.filter({ $0.title.lowercased().contains(searchString.lowercased()) })
-        print(filteredPetitions)
+        filteredPetitions = petitions.filter({ $0.title.lowercased().contains(searchString.lowercased()) || $0.body.lowercased().contains(searchString.lowercased()) })
         tableView.reloadData()
     }
     

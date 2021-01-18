@@ -75,6 +75,7 @@ class PetitionCell: UITableViewCell {
         bodyLabel.lineBreakMode = .byTruncatingTail
         bodyLabel.numberOfLines = 2
         bodyLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        bodyLabel.textColor = .secondaryLabel
         
         let padding: CGFloat = 10
         

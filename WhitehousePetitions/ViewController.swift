@@ -61,9 +61,9 @@ class ViewController: UITableViewController {
                     return
                 }
             }
+            
+            self?.showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
         }
-        
-        showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
     }
     
     func parse(json: Data) {
@@ -71,7 +71,7 @@ class ViewController: UITableViewController {
         
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
             petitions = jsonPetitions.results
-            tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in self?.tableView.reloadData() }
         }
     }
     

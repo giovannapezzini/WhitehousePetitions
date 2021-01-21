@@ -12,3 +12,6 @@ An app that shows White House petitions using "We the people" API.
 + Codable
 + UITabBarController
 + LaunchScreen
++ GCD
++ performSelector( )
++ Quality of Service

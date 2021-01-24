@@ -39,39 +39,43 @@ class ViewController: UITableViewController {
     @objc func refreshPetitions() {
         isSearching = false
         filteredPetitions.removeAll()
-        tableView.reloadData()
+        DispatchQueue.main.async { self.tableView.reloadData() }
     }
     
     // MARK: - Fetch and parse Data
     
     @objc func fetchJSON() {
-        let urlString: String
-        
-        if navigationController?.tabBarItem.tag == 0 {
-            urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
-        } else {
-            urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
-        }
-        
-        
-        if let url = URL(string: urlString) {
-            if let data = try? Data(contentsOf: url) {
-                parse(json: data)
-                return
+        DispatchQueue.main.async {
+            let urlString: String
+            
+            if self.navigationController?.tabBarItem.tag == 0 {
+                urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
+            } else {
+                urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
             }
             
-            showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
+            
+            if let url = URL(string: urlString) {
+                if let data = try? Data(contentsOf: url) {
+                    self.parse(json: data)
+                    return
+                }
+                
+                self.showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
+            }
         }
     }
     
     func parse(json: Data) {
-        let decoder = JSONDecoder()
-        
-        if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
-            petitions = jsonPetitions.results
-            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
-        } else {
-            showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
+        DispatchQueue.main.async {
+            let decoder = JSONDecoder()
+            
+            if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
+                self.petitions = jsonPetitions.results
+                self.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+            } else {
+                self.showError(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.")
+            }
         }
     }
     
@@ -85,17 +89,19 @@ class ViewController: UITableViewController {
     // MARK: - Search Methods
     
     @objc func searchPetition() {
-        let ac = UIAlertController(title: "Search petition", message: nil, preferredStyle: .alert)
-        ac.addTextField()
-        
-        let submitAction = UIAlertAction(title: "Search", style: .default) {
-            [weak self, weak ac] _ in
-            guard let searchString = ac?.textFields?[0].text else { return }
-            self?.updateSearchResults(searchString)
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: "Search petition", message: nil, preferredStyle: .alert)
+            ac.addTextField()
+            
+            let submitAction = UIAlertAction(title: "Search", style: .default) {
+                [weak self, weak ac] _ in
+                guard let searchString = ac?.textFields?[0].text else { return }
+                self?.updateSearchResults(searchString)
+            }
+                    
+            ac.addAction(submitAction)
+            self.present(ac, animated: true)
         }
-                
-        ac.addAction(submitAction)
-        present(ac, animated: true)
     }
     
     func updateSearchResults(_ searchString : String) {

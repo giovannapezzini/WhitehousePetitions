@@ -108,13 +108,13 @@ class ViewController: UITableViewController {
         if searchString.isEmpty {
             filteredPetitions.removeAll()
             isSearching = false
-            tableView.reloadData()
+            DispatchQueue.main.async { self.tableView.reloadData() }
             return
         }
         
         isSearching = true
         filteredPetitions = petitions.filter({ $0.title.lowercased().contains(searchString.lowercased()) || $0.body.lowercased().contains(searchString.lowercased()) })
-        tableView.reloadData()
+        DispatchQueue.main.async { self.tableView.reloadData() }
     }
     
     // MARK: - TableView datasource and delegate methods
